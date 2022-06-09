@@ -6,15 +6,15 @@
 const char * ssid = "paulSwift";
 const char * password = "mathisfun";
 
-ezButton button1(33); // create ezButton object that attach to pin 34;
-ezButton button2(32); // create ezButton object that attach to pin 34;
-ezButton button3(34); // create ezButton object that attach to pin 34;
-ezButton button4(35); // create ezButton object that attach to pin 34;
+ezButton button1(12); // create ezButton object that attach to pin 34;
+ezButton button2(14); // create ezButton object that attach to pin 34;
+ezButton button3(27); // create ezButton object that attach to pin 34;
+ezButton button4(26); // create ezButton object that attach to pin 34;
 ezButton button5(25); // create ezButton object that attach to pin 34;
-ezButton button6(26); // create ezButton object that attach to pin 34;
-ezButton button7(27); // create ezButton object that attach to pin 34;
-ezButton button8(14); // create ezButton object that attach to pin 34;
-ezButton button9(12); // create ezButton object that attach to pin 34;
+ezButton button6(33); // create ezButton object that attach to pin 34;
+ezButton button7(32); // create ezButton object that attach to pin 34;
+ezButton button8(35); // create ezButton object that attach to pin 34;
+ezButton button9(34); // create ezButton object that attach to pin 34;
 
 //switch states / serial messages
 
@@ -79,6 +79,7 @@ void setup() {
     Serial.println("WiFi connected");
     Serial.println("IP address: ");
     Serial.println(WiFi.localIP());
+}
 
 // The Main Loop Function
 void loop() {
@@ -99,6 +100,7 @@ void loop() {
      //Serial.write(1);
     else
       switch_state1 = SWITCH_OFF1;
+    }
 
     if (button2.isPressed()) {
     // change state of switch
@@ -107,6 +109,7 @@ void loop() {
      //Serial.write(1);
     else
       switch_state2 = SWITCH_OFF2;
+    }
 
     if (button3.isPressed()) {
     // change state of switch
@@ -115,6 +118,7 @@ void loop() {
      //Serial.write(1);
     else
       switch_state3 = SWITCH_OFF3;
+    }
 
     if (button4.isPressed()) {
     // change state of switch
@@ -123,6 +127,7 @@ void loop() {
      //Serial.write(1);
     else
       switch_state4 = SWITCH_OFF4;
+    }
 
     if (button5.isPressed()) {
     // change state of switch
@@ -131,6 +136,7 @@ void loop() {
      //Serial.write(1);
     else
       switch_state5 = SWITCH_OFF5;
+    }
 
     if (button6.isPressed()) {
     // change state of switch
@@ -139,6 +145,7 @@ void loop() {
      //Serial.write(1);
     else
       switch_state6 = SWITCH_OFF6;
+    }
 
     if (button7.isPressed()) {
     // change state of switch
@@ -147,6 +154,7 @@ void loop() {
      //Serial.write(1);
     else
       switch_state7 = SWITCH_OFF7;
+    }
 
     if (button8.isPressed()) {
     // change state of switch
@@ -155,6 +163,7 @@ void loop() {
      //Serial.write(1);
     else
       switch_state8 = SWITCH_OFF8;
+    }
 
     if (button9.isPressed()) {
     // change state of switch
@@ -163,8 +172,17 @@ void loop() {
      //Serial.write(1);
     else
       switch_state9 = SWITCH_OFF9;
+    }
 
+     Serial.println(switch_state1);
+     Serial.println(switch_state2);
      Serial.println(switch_state3);
+     Serial.println(switch_state4);
+     Serial.println(switch_state5);
+     Serial.println(switch_state6);
+     Serial.println(switch_state7);
+     Serial.println(switch_state8);
+     Serial.println(switch_state9);
      OSCMessage msg("/Heartbeat");
        msg.add(switch_state1);
        msg.add(switch_state2);
@@ -182,4 +200,3 @@ void loop() {
 
 //    msg.add(beat);
   }
-}
