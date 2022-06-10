@@ -29,6 +29,11 @@ int LED4val = 0;
 int LED5val = 0;
 int LED6val = 0;
 
+//IPAddress outIp(192, 168, 1, 101); //public ip of the server
+IPAddress outIp(192, 168, 1, 105); //public ip of the server
+const unsigned int outPort = 666;
+WiFiUDP Udp;
+
 void setup() {
   // put your setup code here, to run once:
 pinMode(LED1, OUTPUT); //Recognize the LEDS as OUTPUT
@@ -38,7 +43,22 @@ pinMode(LED4, OUTPUT); //Recognize the LEDS as OUTPUT
 pinMode(LED5, OUTPUT); //Recognize the LEDS as OUTPUT
 pinMode(LED6, OUTPUT); //Recognize the LEDS as OUTPUT
 
-Serial.begin(9600);
+Serial.begin(115200);
+
+
+WiFi.mode(WIFI_STA);
+Udp.begin(outPort);
+WiFi.begin(ssid, password);
+
+while (WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+  }
+
+    Serial.println("");
+    Serial.println("WiFi connected");
+    Serial.println("IP address: ");
+    Serial.println(WiFi.localIP());
 }
 
 void loop() {
@@ -137,15 +157,11 @@ if (currentMillis - previousMillis >= interval) {
      Serial.println(LED4val);
      Serial.println(LED5val);
      Serial.println(LED6val);
-     OSCMessage msg("/Heartbeat");
-       msg.add(switch_state1);
-       msg.add(switch_state2);
-       msg.add(switch_state3);
-       msg.add(switch_state4);
-       msg.add(switch_state5);
-       msg.add(switch_state6);
-     Udp.beginPacket(outIp, outPort);
-     msg.send(Udp); // send the bytes to the SLIP stream
-     Udp.endPacket(); // mark the end of the OSC Packet
-     msg.empty(); // free space occupied by message
+  
+  OSCMessage msg("/lever");
+    msg.add(potentiometerVal);
+  Udp.beginPacket(outIp, outPort);
+   msg.send(Udp); // send the bytes to the SLIP stream
+  Udp.endPacket(); // mark the end of the OSC Packet
+   msg.empty(); // free space occupied by message
 }
